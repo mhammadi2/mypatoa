@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+ 
+    <div class="container">
+        <div class="row m-5"> 
+                <form method="POST" action="{% url 'result'  %}">
+                {% csrf_token %}
+                    {{ form.as_p }}
+
+                <input type="Submit" name="submit" value="Submit"/>
+                </form>
+                
+                <!-- <fieldset> 
+                <div class="col-md-6">
+                        <p>
+                            <label for="patno">Application Number: </label>
+                            <input class="form-control" name="patno" type="text" id="patno" pattern="[0-9]{8}" size="20" placeholder="enter app #">
+                        </p>        
+                    </div>
+                <div class="col-md-6">
+                    <p><label for="pubno">Publication Number: </label>
+                        <p><input name="pubno" id="pubno" type="num" pattern="[0-9]{11}" placeholder="#########" aria-label="11-digit pub num" size="20"/>           
+                        </p>
+                </div>
+                </fieldset> -->
+                    
+            </div>
+            
+            <!-- <div class="row">
+
+                <div class="col-md-6 form-check">
+                    <input class="form-control btn btn-primary form-check" name="add112" id="add112" type="radio" value="112">
+                    <label class="form-check btn-primary" for="add112">112</label>
+                </div>
+                <div class="col-md-6 blue form-check">
+                    <input class="form-control btn btn-primary form-check" name="obj" id="obj" type="radio" value="obj">
+                    <label class="form-check btn-primary" for="obj">Objection</label>
+                </div>
+            </div>
+            <div class="row"> -->
+
+                
+                <!-- <div class=" col-md-6">
+                    <button class="btn btn-primary" type="submit">Scrape </button> 
+                </div> -->
+                
+                <div class="col-md-6">
+                    <a class="btn btn-warning" href="{% url 'clear' %}">Delete</a>
+                <!-- </form> -->
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h5 style="box-sizing: border-box; font-size: medium;"> Total Claims in the {{patpubno}} is : {{ total_claim }}</h5>
+                </div>
+            </div>
+    
+        </div>
+        
+        <div class="row">
+            
+            <div class="col-md-12">
+            <h1>{{AB112}}</h1>
+            
+            {% for claim in data %}
+              <p>   <strong> Regarding Claim <b>  {{claim.total_claim}} </b>, </strong>  {{claim.claim_list}} </p>
+            {% endfor %}
+                  
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-md-12">
+           <!-- <a href="download" class=button >Download</a> -->
+           <a href="/static/media/{{searchterm}}.docx" class="btn btn-success px-4 py-2 btn-sm">Download Claimset</a>
+        </div>
+        <div class="row">
+                <div class="col-md-12 m-1 alert alert-primary">
+                <h5 style="box-sizing: border-box; font-size: medium;"> Patent Application No. :{{searchterm}} </h5>
+                </div>
+        </div>
+        
+    </div>
+     
+    </body>
+</html>
